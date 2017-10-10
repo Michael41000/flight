@@ -1,9 +1,9 @@
-<div ng-repeat="flight in $flightsCtrl.flights">
+<div ng-repeat="flight in $ctrl.flights">
     <div>
-        Origin: {{ flight.origin }}
+        Origin: {{ flight.origin | firstUpperRestLower }}
     </div>
     <div>
-        Destination: {{ flight.destination }}
+        Destination: {{ flight.destination | firstUpperRestLower }}
     </div>
     <div>
         Flight Time In Air: {{ flight.flightTime }}

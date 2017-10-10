@@ -7,5 +7,6 @@ require('angular-material')
 require('angular-messages')
 require('angular-ui-router')
 require('ngmap')
+require('angular-resource')
 
 require('angular-material/angular-material.css')

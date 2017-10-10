@@ -1,0 +1,10 @@
+<div>
+    <p>Username: <input type="text" size="20" ng-model="$signInSignUpCtrl.username"></input>
+    </p>
+    <p>Password: <input type="text" size="20" ng-model="$signInSignUpCtrl.password"></input>
+    </p>
+    <button ng-click="$signInSignUpCtrl.signIn()">Sign In</button>
+    <button ng-click="$signInSignUpCtrl.signUp()">Sign Up</button>
+    <div ng-if=$signInSignUpCtrl.failedSignIn>User not found</div>
+    <div ng-if=$signInSignUpCtrl.failedSignUp>Username taken</div>
+</div>

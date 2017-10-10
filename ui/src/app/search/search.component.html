@@ -1,0 +1,8 @@
+<div>
+    <p>Origin: <input type="text" size="20" ng-model="$searchCtrl.origin" ng-change="$searchCtrl.changedOrigin()"></input>
+    </p>
+    <p>Destination: <input type="text" size="20" ng-model="$searchCtrl.destination" ng-change="$searchCtrl.changedDestination()"></input>
+    </p>
+    <button ng-click="$searchCtrl.searchFlights()">Search</button>
+    <flight-list-component flights=$searchCtrl.flights></flight-list-component>
+</div>
