@@ -1,0 +1,8 @@
+<div>
+        <p>Origin: <input type="text" size="20" ng-model="$itineraryCtrl.$itinerary.origin"></input>
+        </p>
+        <p>Destination: <input type="text" size="20" ng-model="$itineraryCtrl.$itinerary.destination"></input>
+        </p>
+        <button ng-click="$itineraryCtrl.$itinerary.getItinerary()">Search</button>
+        <flight-list-component flights=$itineraryCtrl.$itinerary.flights></flight-list-component>
+</div>

@@ -9,19 +9,21 @@ import org.springframework.stereotype.Service;
 
 import com.cooksys.aspect.NotifyClients;
 import com.cooksys.component.FlightGenerator;
-import com.cooksys.pojo.Flight;
+import com.cooksys.entity.Flight;
+import com.cooksys.repository.FlightRepository;
 
 @Service
 public class FlightService {
 
 	@Autowired
 	FlightGenerator generator;
-
-	private List<Flight> flightList = new ArrayList<>();
+	
+	@Autowired
+	FlightRepository flightRepository;
 	
 	public List<Flight> getDailyFlightList()
 	{
-		return flightList;
+		return flightRepository.findAllByActiveTrueOrderByOffset();
 	}
 	
 	@NotifyClients
@@ -29,47 +31,39 @@ public class FlightService {
 	@Scheduled(fixedDelay=1000 * 60 * 60 * 24)
 	private void refreshFlights()
 	{
-		flightList = generator.generateNewFlightList();
+		List<Flight> flightList = generator.generateNewFlightList();
+		
+		List<Flight> previousFlights = flightRepository.findAllByActiveTrueOrderByOffset();
+		for (int i = 0; i < previousFlights.size(); i++)
+		{
+			Long itinerarySize = flightRepository.getSizeOfItineraryPartOf(previousFlights.get(i).getId());
+			if (itinerarySize == 0)
+			{
+				flightRepository.delete(previousFlights.get(i));
+			}
+			else
+			{
+				previousFlights.get(i).setActive(false);
+				flightRepository.save(previousFlights.get(i));
+			}
+		}
+		
+		for (int i = 0; i < flightList.size(); i++)
+		{
+			flightRepository.save(flightList.get(i));
+		}
 	}
 
 	public List<Flight> getFlightsByOriginAndDestination(String origin, String destination) {
-		List<Flight> originAndDestination = new ArrayList<Flight>();
-		for (int i = 0; i < flightList.size(); i++)
-		{
-			if (flightList.get(i).getOrigin().toLowerCase().equals(origin.toLowerCase()) 
-					&& flightList.get(i).getDestination().toLowerCase().equals(destination.toLowerCase()))
-			{
-				originAndDestination.add(flightList.get(i));
-			}
-		}
-		
-		return originAndDestination;
+		return flightRepository.findAllByOriginIgnoreCaseAndDestinationIgnoreCaseAndActiveTrue(origin, destination);
 	}
 
 	public List<Flight> getFlightsByOrigin(String origin) {
-		List<Flight> originFlights = new ArrayList<Flight>();
-		for (int i = 0; i < flightList.size(); i++)
-		{
-			if (flightList.get(i).getOrigin().toLowerCase().equals(origin.toLowerCase()))
-			{
-				originFlights.add(flightList.get(i));
-			}
-		}
-		
-		return originFlights;
+		return flightRepository.findAllByOriginIgnoreCaseAndActiveTrue(origin);
 	}
 	
 	public List<Flight> getFlightsByDestination(String destination) {
-		List<Flight> destinationFlights = new ArrayList<Flight>();
-		for (int i = 0; i < flightList.size(); i++)
-		{
-			if (flightList.get(i).getDestination().toLowerCase().equals(destination.toLowerCase()))
-			{
-				destinationFlights.add(flightList.get(i));
-			}
-		}
-		
-		return destinationFlights;
+		return flightRepository.findAllByDestinationIgnoreCaseAndActiveTrue(destination);
 	}
 	
 }
