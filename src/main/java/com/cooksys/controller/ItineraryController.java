@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cooksys.entity.Flight;
+import com.cooksys.entity.Itinerary;
 import com.cooksys.service.ItineraryService;
 
 @RestController
@@ -20,8 +21,14 @@ public class ItineraryController {
 	@Autowired
 	private ItineraryService itineraryService;
 
-	@RequestMapping(method=RequestMethod.GET, value="/origin/{origin}/destination/{destination}")
+	@RequestMapping(method=RequestMethod.GET, value="fastest/origin/{origin}/destination/{destination}")
 	public List<Flight> getFastest(@PathVariable("origin") String origin, @PathVariable("destination") String destination) {
 		return itineraryService.getFastest(origin, destination);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/origin/{origin}/destination/{destination}")
+	public List<Itinerary> getItineraries(@PathVariable("origin") String origin, @PathVariable("destination") String destination)
+	{
+		return itineraryService.getItineraries(origin, destination);
 	}
 }

@@ -1,13 +1,13 @@
-import flightListComponent from './flightList.component.js'
+import flightComponent from './flight.component.js'
 
 export default
   angular
-    .module('flight.flightList', ['ui.router'])
+    .module('flight.flight', [])
     .filter('firstUpperRestLower', [function () {
       return function (string) {
         if (string !== undefined)
           return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
       }
     }])
-    .component('flightListComponent', flightListComponent)
+    .component('flightComponent', flightComponent)
     .name

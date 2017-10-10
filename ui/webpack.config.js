@@ -2,6 +2,7 @@
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const webpack = require('webpack')
 
 const devtool = 'source-map'
 
@@ -50,6 +51,12 @@ const plugins = [
     hash: true,
     template: './static/index.html',
     inject: 'head'
+  }),
+  new webpack.ProvidePlugin({
+    $: 'jquery',
+    jQuery: 'jquery',
+    'window.jQuery': 'jquery',
+    Popper: ['popper.js', 'default']
   })
 ]
 

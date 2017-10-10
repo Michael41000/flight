@@ -1,0 +1,50 @@
+<!-- NAVIGATION -->
+<nav class="navbar navbar-inverse" role="navigation">
+
+    <ul class="nav navbar-nav">
+        <li>
+            <div class="navbar-brand">
+                <a ui-sref="allFlightsState" ui-sref-opts="{reload: true}">
+                    <font size="5">Flight App</font>
+                </a>
+            </div>
+        </li>
+        <li>
+            <div class="navbar-brand">
+                <a ui-sref="allFlightsState" ui-sref-opts="{reload: true}">
+                    <font size="2">All Flights</font>
+                </a>
+            </div>
+        </li>
+        <li>
+            <div class="navbar-brand">
+                <a ui-sref="allFlightsState" ui-sref-opts="{reload: true}">
+                    <font size="2">Search Flights</font>
+                </a>
+            </div>
+        </li>
+        <li>
+            <div class="navbar-brand">
+                <a ui-sref="itineraryState" ui-sref-opts="{reload: true}">
+                    <font size="2">Search Itineraries</font>
+                </a>
+            </div>
+        </li>
+        <li ng-if=!$navbarCtrl.$user.isLoggedIn>
+            <div class="navbar-brand">
+                <a ui-sref="signInSignUpState">
+                    <font size="2">Login</font>
+                </a>
+            </div>
+        </li>
+        <li ng-if=$navbarCtrl.$user.isLoggedIn>
+            <div class="navbar-brand">
+                <a ng-click="$navbarCtrl.logout()">
+                    <font size="2">Logout</font>
+                </a>
+            </div>
+        </li>
+        </li>
+
+    </ul>
+</nav>

@@ -9,13 +9,10 @@ import org.springframework.stereotype.Component;
 
 import com.cooksys.entity.Flight;
 import com.cooksys.pojo.Cities;
-import com.cooksys.repository.FlightRepository;
 
 @Component
 public class FlightGenerator {
 
-	@Autowired
-	FlightRepository flightRepository;
 	
 	public List<Flight> generateNewFlightList() {
 		
@@ -41,7 +38,6 @@ public class FlightGenerator {
 			f.setDestination(destination);
 			f.setFlightTime(flightTime);
 			f.setOffset(offset);
-			f.setActive(true);
 
 			result.add(f);
 		}

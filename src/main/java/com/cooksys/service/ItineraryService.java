@@ -2,31 +2,34 @@ package com.cooksys.service;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Set;
 import java.util.Stack;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cooksys.entity.Flight;
-import com.cooksys.repository.FlightRepository;
+import com.cooksys.entity.Itinerary;
 
 @Service
 public class ItineraryService {
 
 	@Autowired
-	FlightRepository flightrepository;
-
+	FlightService flightService;
 	
 	public List<Flight> getFastest(String origin, String destination) {
-		List<Flight> originFlights = flightrepository.findAllByOriginIgnoreCaseAndActiveTrue(origin);
+		List<Flight> originFlights = flightService.getFlightsByOrigin(origin);
 		List<Tree> allItineraries = new ArrayList<Tree>();
 		System.out.println("AllIts");
 		for (int i = 0; i < originFlights.size(); i++) {
 			Tree t = getItineraries(originFlights.get(i), destination, null);
+			// Null check is here to remove origin itineraries that are not possible to make it to destination
 			if (t != null)
 			{
 				allItineraries.add(t);
@@ -34,9 +37,9 @@ public class ItineraryService {
 		}
 		
 		System.out.println("AllIts");
-		for(int i = 0; i < allItineraries.size(); i++)
+		if (allItineraries.size() == 0)
 		{
-			System.out.println(i + " " + allItineraries.get(i));
+			return new ArrayList<Flight>();
 		}
 		List<HashMap<List<Flight>, Long>> shortestItineraries = new ArrayList<HashMap<List<Flight>, Long>>();
 		Integer shortestTimeIndex = 0;
@@ -54,6 +57,63 @@ public class ItineraryService {
 		
 		System.out.println(shortestTimeIndex);
 		return shortestItineraries.get(shortestTimeIndex).entrySet().iterator().next().getKey();
+	}
+	
+	public List<Itinerary> getItineraries(String origin, String destination) {
+		List<Flight> originFlights = flightService.getFlightsByOrigin(origin);
+		List<Tree> allItineraries = new ArrayList<Tree>();
+		System.out.println("AllIts");
+		for (int i = 0; i < originFlights.size(); i++) {
+			Tree t = getItineraries(originFlights.get(i), destination, null);
+			// Null check is here to remove origin itineraries that are not possible to make it to destination
+			if (t != null)
+			{
+				allItineraries.add(t);
+			}
+		}
+		
+		System.out.println("AllIts");
+		if (allItineraries.size() == 0)
+		{
+			return new ArrayList<Itinerary>();
+		}
+		
+		List<Itinerary> itineraries = findAllItineraries(allItineraries);
+		
+		itineraries.sort(new Comparator<Itinerary>() {
+			@Override
+			public int compare(Itinerary o1, Itinerary o2) {
+				Long timeTakenOne;
+				if (o1.getItinerary().size() == 1)
+				{
+					Flight onlyFlight = o1.getItinerary().get(0);
+					timeTakenOne = onlyFlight.getFlightTime();
+				}
+				else
+				{
+					Flight firstFlight = o1.getItinerary().get(0);
+					Flight lastFlight = o1.getItinerary().get(o1.getItinerary().size() - 1);
+					timeTakenOne = (lastFlight.getOffset() + lastFlight.getFlightTime()) - firstFlight.getOffset();
+				}
+				
+				Long timeTakenTwo;
+				if (o2.getItinerary().size() == 1)
+				{
+					Flight onlyFlight = o2.getItinerary().get(0);
+					timeTakenTwo = onlyFlight.getFlightTime();
+				}
+				else
+				{
+					Flight firstFlight = o2.getItinerary().get(0);
+					Flight lastFlight = o2.getItinerary().get(o2.getItinerary().size() - 1);
+					timeTakenTwo = (lastFlight.getOffset() + lastFlight.getFlightTime()) - firstFlight.getOffset();
+				}
+				
+				return Long.compare(timeTakenOne, timeTakenTwo);
+			}
+		});
+		
+		return itineraries;
 	}
 
 	private Tree getItineraries(Flight flight, String destination, Tree t) {
@@ -75,7 +135,7 @@ public class ItineraryService {
 		else
 		{
 			System.out.println("NewTree: " + newTree);
-			List<Flight> flightList = flightrepository.findAllByActiveTrueOrderByOffset();
+			List<Flight> flightList = flightService.getDailyFlightList();
 			boolean addToTree = false;
 			for (int i = 0; i < flightList.size(); i++)
 			{
@@ -106,21 +166,7 @@ public class ItineraryService {
 	
 	private HashMap<List<Flight>, Long> findShortest(Tree t)
 	{
-		List<Tree> endNodes = new ArrayList<Tree>();
-		Queue<Tree> queueNodes = new ArrayDeque<Tree>();
-		queueNodes.add(t);
-		while(queueNodes.isEmpty() == false)
-		{
-			Tree queueTree = queueNodes.remove();
-			if (queueTree.children.size() == 0)
-			{
-				endNodes.add(queueTree);
-			}
-			else
-			{
-				queueNodes.addAll(queueTree.children);
-			}
-		}
+		List<Tree> endNodes = getEndNodes(t);
 		
 		Long shortestTime = Long.MAX_VALUE;
 		Integer shortestTimeIndex = 0;
@@ -160,8 +206,72 @@ public class ItineraryService {
 		return returnMap;
 		
 	}
+	
+	private List<Itinerary> findAllItineraries(List<Tree> t)
+	{
+		List<Itinerary> allItineraries = new ArrayList<Itinerary>();
+		for (int i = 0; i < t.size(); i++)
+		{
+			List<Tree> endNodes = getEndNodes(t.get(i));
+			for (int j = 0; j < endNodes.size(); j++)
+			{
+				Itinerary itinerary = getItineraryFromEndNode(endNodes.get(j));
+				if(itinerary != null)
+				{
+					allItineraries.add(itinerary);
+				}
+			}
+		}
+		return allItineraries;
+	}
+	
+	private Itinerary getItineraryFromEndNode(Tree endNode)
+	{
+		Stack<Flight> backwardsItinerary = new Stack<Flight>();
+		Set<String> originSet = new HashSet<String>();
+		Tree currentNode = endNode;
+		while (currentNode != null)
+		{
+			if (originSet.add(currentNode.data.getOrigin()) == false)
+			{
+				return null;
+			}
+			backwardsItinerary.add(currentNode.data);
+			
+			currentNode = currentNode.parent;
+		}
+		List<Flight> itineraryList = new ArrayList<Flight>();
+		while(backwardsItinerary.isEmpty() == false)
+		{
+			itineraryList.add(backwardsItinerary.pop());
+		}
+		
+		Itinerary itinerary = new Itinerary();
+		itinerary.setItinerary(itineraryList);
+		return itinerary;
+	}
+	
+	private List<Tree> getEndNodes(Tree parentNode)
+	{
+		List<Tree> endNodes = new ArrayList<Tree>();
+		Queue<Tree> queueNodes = new ArrayDeque<Tree>();
+		queueNodes.add(parentNode);
+		while(queueNodes.isEmpty() == false)
+		{
+			Tree queueTree = queueNodes.remove();
+			if (queueTree.children.size() == 0)
+			{
+				endNodes.add(queueTree);
+			}
+			else
+			{
+				queueNodes.addAll(queueTree.children);
+			}
+		}
+		return endNodes;
+	}
 
-	class Tree {
+	private class Tree {
 		private Flight data;
 		private Tree parent;
 		private List<Tree> children;
@@ -184,5 +294,7 @@ public class ItineraryService {
 		
 		
 	}
+
+	
 
 }

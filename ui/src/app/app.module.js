@@ -3,6 +3,9 @@ import flightListComponent from './flightList/flightList.module'
 import signInSignUpComponent from './signInSignUp/signInSignUp.module'
 import searchComponent from './search/search.module'
 import itineraryComponent from './itinerary/itinerary.module'
+import navbarComponent from './navbar/navbar.module'
+import flightComponent from './flight/flight.module'
+
 
 import apiUrl from './api.url'
 import appComponent from './app.component.js'
@@ -21,7 +24,9 @@ export default
       flightListComponent,
       signInSignUpComponent,
       searchComponent,
-      itineraryComponent
+      itineraryComponent,
+      navbarComponent, 
+      flightComponent
     ])
     .config(routes)
     .constant('apiUrl', apiUrl)

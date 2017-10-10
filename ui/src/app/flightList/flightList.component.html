@@ -1,15 +1,20 @@
-<div ng-repeat="flight in $ctrl.flights">
-    <div>
-        Origin: {{ flight.origin | firstUpperRestLower }}
-    </div>
-    <div>
-        Destination: {{ flight.destination | firstUpperRestLower }}
-    </div>
-    <div>
-        Flight Time In Air: {{ flight.flightTime }}
-    </div>
-    <div>
-        Flight Departure Time: {{ flight.offset }}
-    </div>
-    <p></p>
-</div>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Origin</th>
+            <th>Destination</th>
+            <th>Flight Time</th>
+            <th>Departure Time</th>
+            <th>Map</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr ng-repeat="flight in $flightListCtrl.flights">
+            <td>{{ flight.origin | firstUpperRestLower }}</td>
+            <td>{{ flight.destination | firstUpperRestLower }}</td>
+            <td>{{ flight.flightTime }}</td>
+            <td>{{ flight.offset }}</td>
+        </tr>
+    </tbody>
+</table>

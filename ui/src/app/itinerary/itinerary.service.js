@@ -1,25 +1,15 @@
 /* @ngInject */
 class ItineraryService {
-    constructor($flights) {
-        this.$flights = $flights
-
-        $flights.getFlights().then((done) => {
-            this.flights = done
-
-
-
-        })
+    constructor($http, apiUrl) {
+        this.$http = $http
+        this.apiUrl = apiUrl
     }
 
-    getItinerary() {
-        this.flights = this.flights.reduce((previous, current) => {
-            console.log(current)
-            if (current.origin.toLowerCase() === this.origin.toLowerCase()) {
-                previous.push(current)
-            }
-            console.log(previous)
-            return previous
-        }, [])
+    getFastestItinerary(origin, destination) {
+        console.log('hello')
+        return this.$http
+            .get(`${this.apiUrl}/itinerary/fastest/origin/` + origin + '/destination/' + destination)
+            .then(result => result.data)
     }
 
 }

@@ -16,8 +16,9 @@ class SignInSignUpController {
   signIn = () => {
     this.$user.checkUserCredentials(this.username, this.password).then((done) => {
       console.log(done)
-      if (done === true) {
-        console.log('Successful sign In')
+      if (done) {
+        this.$user.login(this.username, this.password)
+        this.failedSignIn = false
       }
       else {
         this.failedSignIn = true
@@ -30,8 +31,9 @@ class SignInSignUpController {
       console.log(done)
       if (done === true) {
         this.$user.makeUser(this.username, this.password).then((done) => {
-          console.log('successful sign up')
+          this.$user.login(this.username, this.password)
         })
+        this.failedSignUp = false
       }
       else {
         this.failedSignUp = true
