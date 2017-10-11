@@ -3,6 +3,7 @@ class ItineraryListController {
 
     constructor($itinerary) {
         this.$itinerary = $itinerary
+        this.noRoutes = false
     }
 
     getFastestItinerary() {
@@ -28,6 +29,10 @@ class ItineraryListController {
             }
             console.log(this.itineraries)
         })
+    }
+
+    changedSearch() {
+        this.noRoutes = false
     }
 }
 
