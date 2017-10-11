@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cooksys.dto.Credential;
+import com.cooksys.dto.ItineraryCredentialDto;
+import com.cooksys.dto.ItineraryDto;
 import com.cooksys.entity.UserAccount;
 import com.cooksys.service.UserAccountService;
 
@@ -29,9 +32,9 @@ public class UserAccountController {
 	}
 
 	@RequestMapping(method=RequestMethod.POST)
-	public UserAccount createUser(@RequestBody UserAccount userAccount,
+	public UserAccount createUser(@RequestBody Credential credential,
 			HttpServletResponse response) {
-		UserAccount user = userAccountService.createUser(userAccount);
+		UserAccount user = userAccountService.createUser(credential);
 
 		response.setStatus(user != null ? HttpServletResponse.SC_OK : HttpServletResponse.SC_BAD_REQUEST);
 
@@ -48,15 +51,27 @@ public class UserAccountController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="/checkUserCredentials/{username}")
-	public boolean checkUser(@PathVariable String username, @RequestBody UserAccount userAccount)
+	public boolean checkUser(@PathVariable String username, @RequestBody Credential credential)
 	{
-		return userAccountService.checkUserCredentials(username, userAccount);
+		return userAccountService.checkUserCredentials(username, credential);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/checkUsernameAvailable/{username}")
 	public boolean checkUser(@PathVariable String username)
 	{
 		return userAccountService.checkUsernameAvailable(username);
+	}
+	
+	@RequestMapping(method=RequestMethod.POST, value="/itineraries")
+	public boolean saveItinerary(@RequestBody ItineraryCredentialDto itineraryCredentialDto)
+	{
+		return userAccountService.saveItinerary(itineraryCredentialDto);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/itineraries/{username}")
+	public List<ItineraryDto> getItineraries(@PathVariable String username)
+	{
+		return userAccountService.getItinerary(username);
 	}
 
 }

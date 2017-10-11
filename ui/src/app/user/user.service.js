@@ -1,9 +1,10 @@
 /* @ngInject */
 class UserService {
-    constructor($http, apiUrl, $state) {
+    constructor($http, apiUrl, $state, $cookies) {
         this.$http = $http
         this.apiUrl = apiUrl
         this.$state = $state
+        this.$cookies = $cookies
 
         this.username
 
@@ -30,9 +31,17 @@ class UserService {
             .then(result => result.data)
     }
 
+    saveItinerary(itineraryCredential) {
+        return this.$http
+            .post(`${this.apiUrl}/users/itineraries/`, itineraryCredential)
+            .then(result => result.data)
+    }
+
     login(username, password) {
         this.username = username
         this.password = password
+        this.$cookies.put('username', this.username)
+        this.$cookies.put('password', this.password)
         this.isLoggedIn = true
         this.$state.go('allFlightsState')
     }
@@ -40,9 +49,12 @@ class UserService {
     logout() {
         this.username = undefined
         this.password = undefined
+        this.$cookies.remove('username')
+        this.$cookies.remove('password')
         this.isLoggedIn = false
     }
 
 }
+
 
 export default UserService

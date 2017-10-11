@@ -5,6 +5,9 @@
         </p>
         <button ng-click="$itineraryCtrl.getItineraries()">Search</button>
         <div ng-repeat="flights in $itineraryCtrl.itineraries">
-                <flight-list-component flights="flights.itinerary"></flight-list-component>
+                <flight-list-component flights="flights"></flight-list-component>
+        </div>
+        <div ng-if="$itineraryCtrl.noRoutes">
+                No routes available from {{ $itineraryCtrl.origin | firstUpperRestLower }} to {{ $itineraryCtrl.destination | firstUpperRestLower }}
         </div>
 </div>

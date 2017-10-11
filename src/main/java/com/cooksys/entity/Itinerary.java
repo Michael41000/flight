@@ -1,5 +1,6 @@
 package com.cooksys.entity;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.ElementCollection;
@@ -7,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "Itinerary")
@@ -18,6 +21,9 @@ public class Itinerary {
 
 	@ElementCollection
 	List<Flight> itinerary;
+	
+	@CreationTimestamp
+	Timestamp timeAdded;
 
 	public long getId() {
 		return id;
@@ -27,6 +33,7 @@ public class Itinerary {
 		this.id = id;
 	}
 
+	
 	public List<Flight> getItinerary() {
 		return itinerary;
 	}

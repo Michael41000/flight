@@ -5,6 +5,8 @@ import searchComponent from './search/search.module'
 import itineraryComponent from './itinerary/itinerary.module'
 import navbarComponent from './navbar/navbar.module'
 import flightComponent from './flight/flight.module'
+import userService from './user/user.service'
+
 
 
 import apiUrl from './api.url'
@@ -19,6 +21,7 @@ export default
       'ngMaterial',
       'ngMessages',
       'ui.router',
+      'ngCookies',
 
       flightMap,
       flightListComponent,
@@ -26,9 +29,10 @@ export default
       searchComponent,
       itineraryComponent,
       navbarComponent, 
-      flightComponent
+      flightComponent,
     ])
     .config(routes)
     .constant('apiUrl', apiUrl)
     .component('flightApp', appComponent)
+    .service('$user', userService)
     .name

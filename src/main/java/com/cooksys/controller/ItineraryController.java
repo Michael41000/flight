@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cooksys.dto.ItineraryDto;
 import com.cooksys.entity.Flight;
 import com.cooksys.entity.Itinerary;
 import com.cooksys.service.ItineraryService;
@@ -27,7 +28,7 @@ public class ItineraryController {
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/origin/{origin}/destination/{destination}")
-	public List<Itinerary> getItineraries(@PathVariable("origin") String origin, @PathVariable("destination") String destination)
+	public List<ItineraryDto> getItineraries(@PathVariable("origin") String origin, @PathVariable("destination") String destination)
 	{
 		return itineraryService.getItineraries(origin, destination);
 	}

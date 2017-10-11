@@ -14,14 +14,19 @@ import java.util.Stack;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cooksys.dto.ItineraryDto;
 import com.cooksys.entity.Flight;
 import com.cooksys.entity.Itinerary;
+import com.cooksys.mapper.ItineraryMapper;
 
 @Service
 public class ItineraryService {
 
 	@Autowired
 	FlightService flightService;
+	
+	@Autowired
+	ItineraryMapper itineraryMapper;
 	
 	public List<Flight> getFastest(String origin, String destination) {
 		List<Flight> originFlights = flightService.getFlightsByOrigin(origin);
@@ -59,7 +64,7 @@ public class ItineraryService {
 		return shortestItineraries.get(shortestTimeIndex).entrySet().iterator().next().getKey();
 	}
 	
-	public List<Itinerary> getItineraries(String origin, String destination) {
+	public List<ItineraryDto> getItineraries(String origin, String destination) {
 		List<Flight> originFlights = flightService.getFlightsByOrigin(origin);
 		List<Tree> allItineraries = new ArrayList<Tree>();
 		System.out.println("AllIts");
@@ -75,7 +80,7 @@ public class ItineraryService {
 		System.out.println("AllIts");
 		if (allItineraries.size() == 0)
 		{
-			return new ArrayList<Itinerary>();
+			return new ArrayList<ItineraryDto>();
 		}
 		
 		List<Itinerary> itineraries = findAllItineraries(allItineraries);
@@ -113,7 +118,7 @@ public class ItineraryService {
 			}
 		});
 		
-		return itineraries;
+		return itineraryMapper.toDtos(itineraries);
 	}
 
 	private Tree getItineraries(Flight flight, String destination, Tree t) {

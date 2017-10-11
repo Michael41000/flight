@@ -2,16 +2,12 @@ import templateUrl from './app.component.html'
 
 /* @ngInject */
 class AppController {
-  constructor($log) {
+  constructor($log, $user, $cookies) {
     $log.debug('AppController is a go.')
-    this.flights = [{
-      origin: 'Memphis',
-      destination: 'Nashville'
-    },
+    if ($cookies.get('username') !== undefined && $cookies.get('password') !== undefined)
     {
-      origin: 'Nashville',
-      destination: 'Knoxville'
-    }]
+        $user.login($cookies.get('username'), $cookies.get('password'))
+    }
   }
 }
 

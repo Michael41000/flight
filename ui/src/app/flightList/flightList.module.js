@@ -1,4 +1,6 @@
-import flightListComponent from './flightList.component.js'
+import flightListComponent from './flightList.component'
+import itineraryService from './../itinerary/itinerary.service'
+import userService from './../user/user.service'
 
 export default
   angular
@@ -10,4 +12,5 @@ export default
       }
     }])
     .component('flightListComponent', flightListComponent)
+    .service('$user', userService)
     .name
