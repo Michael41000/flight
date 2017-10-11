@@ -9,6 +9,7 @@ import userService from './user/user.service'
 import itineraryListComponent from './itineraryList/itineraryList.module'
 import userItinerariesComponent from './userItineraries/userItineraries.module'
 import userItineraryComponent from './userItinerary/userItinerary.module'
+//const Stomp = require('@stomp/stompjs');
 
 
 
@@ -25,6 +26,7 @@ export default
       'ngMessages',
       'ui.router',
       'ngCookies',
+      'ngStomp',
 
       flightMap,
       flightListComponent,
@@ -40,5 +42,6 @@ export default
     .config(routes)
     .constant('apiUrl', apiUrl)
     .component('flightApp', appComponent)
+    //.constant('Stomp', Stomp)
     .service('$user', userService)
     .name

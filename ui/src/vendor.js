@@ -15,3 +15,5 @@ require('angular-material/angular-material.css')
 require('bootstrap')
 require('bootstrap/dist/css/bootstrap.min.css')
 
+require('ng-stomp')
+

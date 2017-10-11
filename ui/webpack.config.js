@@ -16,6 +16,10 @@ const output = {
   path: '../src/main/resources/static/'
 }
 
+const node = {
+  fs: "empty"
+}
+
 const extensions = [
   '',
   '.js',

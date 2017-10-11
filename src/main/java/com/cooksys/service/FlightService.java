@@ -5,10 +5,10 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import com.cooksys.aspect.NotifyClients;
 import com.cooksys.component.FlightGenerator;
 import com.cooksys.entity.Flight;
 
@@ -18,6 +18,9 @@ public class FlightService {
 	@Autowired
 	FlightGenerator generator;
 	
+	@Autowired
+    private SimpMessagingTemplate template;
+	
 	List<Flight> flightList;
 	
 	public List<Flight> getDailyFlightList()
@@ -25,9 +28,8 @@ public class FlightService {
 		return flightList;
 	}
 	
-	@NotifyClients
 	//The fixedDelay parameter determines how often a new day is generated as expressed in milliseconds
-	@Scheduled(fixedDelay=1000 * 60 * 60 * 24)
+	@Scheduled(fixedDelay=1000 * 10)
 	private void refreshFlights()
 	{
 		flightList = generator.generateNewFlightList();
@@ -37,6 +39,7 @@ public class FlightService {
 				return (int) (o1.getOffset() - o2.getOffset());
 			}
 		});
+		this.template.convertAndSend("/flights/change", "Flights Have Changed");
 	}
 
 	public List<Flight> getFlightsByOriginAndDestination(String origin, String destination) {

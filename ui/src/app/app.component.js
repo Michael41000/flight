@@ -2,13 +2,27 @@ import templateUrl from './app.component.html'
 
 /* @ngInject */
 class AppController {
-  constructor($log, $user, $cookies) {
+  constructor($log, $user, $cookies, $stomp, apiUrl, $rootScope) {
     $log.debug('AppController is a go.')
-    if ($cookies.get('username') !== undefined && $cookies.get('password') !== undefined)
-    {
-        $user.login($cookies.get('username'), $cookies.get('password'))
+    if ($cookies.get('username') !== undefined && $cookies.get('password') !== undefined) {
+      $user.login($cookies.get('username'), $cookies.get('password'))
     }
+
+    const socket = new SockJS(apiUrl + '/gs-guide-websocket')
+    const stompClient = Stomp.over(socket)
+    stompClient.connect({}, function (frame) {
+      console.log('Connected: ' + frame);
+      stompClient.subscribe('/flights/change', function (greeting) {
+        //console.log("in subscribe")  
+        //console.log(greeting.body)
+        $rootScope.$broadcast('flightsChanged')
+      })
+    })
+
+    
+
   }
+
 }
 
 export default {

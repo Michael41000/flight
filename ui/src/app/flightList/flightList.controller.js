@@ -1,14 +1,17 @@
 /* @ngInject */
 class FlightListController {
-    constructor($flights) {
+    constructor($flights, $rootScope) {
         this.$flights = $flights
-
-        $flights.getFlights().then((done) => {
-            this.flights = done
-        })
 
         this.origin = ''
         this.destination = ''
+
+        this.searchFlights()
+
+        $rootScope.$on('flightsChanged', (event) => {
+            console.log('flightsChanged')
+            this.searchFlights()
+        })
     }
 
     searchFlights() {
