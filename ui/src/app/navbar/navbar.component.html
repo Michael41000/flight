@@ -16,20 +16,27 @@
                 </a>
             </div>
         </li>
-        <li>
+        <li ng-if=$navbarCtrl.$user.isLoggedIn>
             <div class="navbar-brand">
                 <a ui-sref="allFlightsState" ui-sref-opts="{reload: true}">
                     <font size="2">Search Flights</font>
                 </a>
             </div>
         </li>
-        <li>
+        <li ng-if=$navbarCtrl.$user.isLoggedIn>
             <div class="navbar-brand">
                 <a ui-sref="itineraryState" ui-sref-opts="{reload: true}">
                     <font size="2">Search Itineraries</font>
                 </a>
             </div>
         </li>
+        <li ng-if=$navbarCtrl.$user.isLoggedIn>
+                <div class="navbar-brand">
+                    <a ui-sref="userItinerariesState" ui-sref-opts="{reload: true}">
+                        <font size="2">My Itineraries</font>
+                    </a>
+                </div>
+            </li>
         <li ng-if=!$navbarCtrl.$user.isLoggedIn>
             <div class="navbar-brand">
                 <a ui-sref="signInSignUpState">
