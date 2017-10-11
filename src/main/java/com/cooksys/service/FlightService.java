@@ -75,5 +75,42 @@ public class FlightService {
 		}
 		return destinationList;
 	}
+
+	public List<Flight> getFlightsByOriginStartsWith(String origin) {
+		List<Flight> originList = new ArrayList<Flight>();
+		for (int i = 0; i < flightList.size(); i++)
+		{
+			if (flightList.get(i).getOrigin().toLowerCase().startsWith(origin.toLowerCase()))
+			{
+				originList.add(flightList.get(i));
+			}
+		}
+		return originList;
+	}
+	
+	public List<Flight> getFlightsByDestinationStartsWith(String destination) {
+		List<Flight> destinationList = new ArrayList<Flight>();
+		for (int i = 0; i < flightList.size(); i++)
+		{
+			if (flightList.get(i).getDestination().toLowerCase().startsWith(destination.toLowerCase()))
+			{
+				destinationList.add(flightList.get(i));
+			}
+		}
+		return destinationList;
+	}
+	
+	public List<Flight> getFlightsByOriginStartsWithAndDestinationStartsWith(String origin, String destination) {
+		List<Flight> originDestinationList = new ArrayList<Flight>();
+		for (int i = 0; i < flightList.size(); i++)
+		{
+			if (flightList.get(i).getOrigin().toLowerCase().startsWith(origin.toLowerCase()) 
+					&& flightList.get(i).getDestination().toLowerCase().startsWith(destination.toLowerCase()))
+			{
+				originDestinationList.add(flightList.get(i));
+			}
+		}
+		return originDestinationList;
+	}
 	
 }

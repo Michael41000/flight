@@ -29,6 +29,24 @@ class FlightsService {
             .then(result => result.data)
     }
 
+    getFlightsByOriginStartsWith(origin) {
+        return this.$http
+        .get(`${this.apiUrl}/flights/startsWith/origin/` + origin)
+        .then(result => result.data)
+    }
+
+    getFlightsByDestinationStartsWith(destination) {
+        return this.$http
+        .get(`${this.apiUrl}/flights/startsWith/destination/` + destination)
+        .then(result => result.data)
+    }
+
+    getFlightsByOriginStartsWithAndDestinationStartsWith(origin, destination) {
+        return this.$http
+            .get(`${this.apiUrl}/flights/startsWith/origin/` + origin + '/startsWith/destination/' + destination)
+            .then(result => result.data)
+    }
+
     
 
 }

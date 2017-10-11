@@ -49,6 +49,24 @@ public class FlightsController {
 		return flightService.getFlightsByOriginAndDestination(origin, destination);
 	}
 	
+	@RequestMapping(method=RequestMethod.GET, value="/startsWith/origin/{origin}")
+	public List<Flight> getFlightsByOriginStartsWith(@PathVariable String origin)
+	{
+		return flightService.getFlightsByOriginStartsWith(origin);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/startsWith/destination/{destination}")
+	public List<Flight> getFlightsByDestinationStartsWith(@PathVariable String destination)
+	{
+		return flightService.getFlightsByDestinationStartsWith(destination);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/startsWith/origin/{origin}/startsWith/destination/{destination}")
+	public List<Flight> getFlightsByOriginStartsWithAndDestinationStartsWith(@PathVariable("origin") String origin, @PathVariable("destination") String destination)
+	{
+		return flightService.getFlightsByOriginStartsWithAndDestinationStartsWith(origin, destination);
+	}
+	
 	
 
 }
