@@ -3,7 +3,8 @@
         <marker ng-repeat="$mapMarker in $mapCtrl.markers" position="{{$mapMarker.position}}">
         </marker>
         <shape ng-repeat="$mapPath in $mapCtrl.paths" name="polyline" path="{{$mapPath.path}}" stroke-color="{{$mapPath.strokeColor}}"
-            stroke-opacity="{{$mapPath.strokeOpacity}}" stroke-weight="{{$mapPath.strokeWeight}}" geodesic="{{$mapPath.geodesic}}">
+            stroke-opacity="{{$mapPath.strokeOpacity}}" stroke-weight="{{$mapPath.strokeWeight}}" geodesic="{{$mapPath.geodesic}}"
+            icons="{{$mapPath.icons}}">
         </shape>
     </ng-map>
 </div>

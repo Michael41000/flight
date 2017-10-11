@@ -3,6 +3,8 @@
         </p>
         <p>Destination: <input type="text" size="20" ng-model="$itineraryCtrl.destination"></input>
         </p>
-        <button ng-click="$itineraryCtrl.getFastestItinerary()">Search</button>
-        <flight-list-component flights=$itineraryCtrl.flights></flight-list-component>
+        <button ng-click="$itineraryCtrl.getItineraries()">Search</button>
+        <div ng-repeat="flights in $itineraryCtrl.itineraries">
+                <flight-list-component flights="flights.itinerary"></flight-list-component>
+        </div>
 </div>

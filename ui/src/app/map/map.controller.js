@@ -7,7 +7,9 @@ class MapController {
 
     constructor($map, locations) {
         this.$map = $map
-
+        this.lineSymbol = {
+            
+        };
         this.colors = ['#CC0099', '#AA1100', '#FF3388']
     }
 
@@ -38,6 +40,14 @@ class MapController {
             path: `[[${a.latitude}, ${a.longitude}], [${b.latitude}, ${b.longitude}]]`,
             strokeColor: color,
             strokeOpacity: 1.0,
+            icons: [{
+                icon: {
+                    path: 'M 0,0 2,2 M 0,0 -2,2',
+                    strokeColor: color,
+                    strokeWeight: 5
+                },
+                offset: '100%'
+            }],
             strokeWeight: 3,
             geodesic: true
         })

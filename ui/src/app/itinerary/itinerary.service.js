@@ -6,11 +6,17 @@ class ItineraryService {
     }
 
     getFastestItinerary(origin, destination) {
-        console.log('hello')
         return this.$http
             .get(`${this.apiUrl}/itinerary/fastest/origin/` + origin + '/destination/' + destination)
             .then(result => result.data)
     }
+
+    getItineraries(origin, destination) {
+        return this.$http
+            .get(`${this.apiUrl}/itinerary/origin/` + origin + '/destination/' + destination)
+            .then(result => result.data)
+    }
+
 
 }
 

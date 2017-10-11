@@ -17,6 +17,7 @@ class ItineraryController {
   getItineraries() {
     this.$itinerary.getItineraries(this.origin, this.destination).then((done) =>{
       console.log(done)
+      this.itineraries = done
     })
   }
 

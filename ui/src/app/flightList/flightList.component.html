@@ -15,6 +15,12 @@
             <td>{{ flight.destination | firstUpperRestLower }}</td>
             <td>{{ flight.flightTime }}</td>
             <td>{{ flight.offset }}</td>
+            <td ng-if="!$flightListCtrl.mapisShown"><button ng-click="$flightListCtrl.showMap()">Show Map</button></td>
+            <td ng-if="$flightListCtrl.mapisShown"><button ng-click="$flightListCtrl.hideMap()">Hide Map</button></td>
         </tr>
     </tbody>
 </table>
+
+<div ng-if="$flightListCtrl.mapisShown">
+        <flight-map flights="$flightListCtrl.flights"></flight-map>
+</div>
