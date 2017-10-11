@@ -1,9 +1,8 @@
 /* @ngInject */
 class ItineraryListController {
 
-    constructor($itinerary, $state) {
+    constructor($itinerary) {
         this.$itinerary = $itinerary
-        this.mapisShown = false
     }
 
     getFastestItinerary() {

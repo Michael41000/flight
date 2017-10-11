@@ -1,6 +1,7 @@
 package com.cooksys.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cooksys.dto.Credential;
 import com.cooksys.dto.ItineraryCredentialDto;
 import com.cooksys.dto.ItineraryDto;
+import com.cooksys.entity.Itinerary;
 import com.cooksys.entity.UserAccount;
 import com.cooksys.service.UserAccountService;
 
@@ -69,9 +71,15 @@ public class UserAccountController {
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/itineraries/{username}")
-	public List<ItineraryDto> getItineraries(@PathVariable String username)
+	public List<Itinerary> getItineraries(@PathVariable String username)
 	{
-		return userAccountService.getItinerary(username);
+		return userAccountService.getItineraries(username);
+	}
+	
+	@RequestMapping(method=RequestMethod.DELETE, value="/itineraries/{id}")
+	public boolean deleteItinerary(@PathVariable Long id, @RequestBody Credential credential)
+	{
+		return userAccountService.deleteItinerary(id, credential);
 	}
 
 }

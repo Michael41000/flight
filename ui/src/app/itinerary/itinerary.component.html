@@ -22,12 +22,13 @@
             <td ng-if="!$itineraryCtrl.mapisShown"><button ng-click="$itineraryCtrl.showMap()">Show Map</button></td>
             <td ng-if="$itineraryCtrl.mapisShown"><button ng-click="$itineraryCtrl.hideMap()">Hide Map</button></td>
             <td><button ng-click="$itineraryCtrl.bookItinerary()">Book Itinerary</button></td>
+            <td><button ng-click="$itineraryCtrl.unbookItinerary()">Unbook Itinerary</button></td>
         </tr>
     </tbody>
 </table>
 
 <div ng-if="$itineraryCtrl.mapisShown">
-    <flight-map flights="$itineraryCtrl.flights"></flight-map>
+    <flight-map flights="$itineraryCtrl.itinerary.itinerary"></flight-map>
 </div>
 
 

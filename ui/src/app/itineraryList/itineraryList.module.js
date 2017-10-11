@@ -4,7 +4,7 @@ import routes from './itineraryList.routes'
 
 export default
   angular
-    .module('flight.itineraryList', ['ui.router'])
+    .module('flight.itineraryList', [])
     .config(routes)
     .filter('firstUpperRestLower', [function () {
       return function (string) {

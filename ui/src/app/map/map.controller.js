@@ -5,11 +5,8 @@ class MapController {
     markers = []
     paths = []
 
-    constructor($map, locations) {
+    constructor($map) {
         this.$map = $map
-        this.lineSymbol = {
-            
-        };
         this.colors = ['#CC0099', '#AA1100', '#FF3388']
     }
 
@@ -18,12 +15,18 @@ class MapController {
         this.$map.getLocations().then((done) => {
             console.log(done)
             this.locations = done
-            this.locations.forEach((location) => {
-                this.addMarker(location)
-            })
             this.flights.forEach((flight, index) => {
                 const flightOrigin = this.locations.find(location => location.city.toLowerCase() === flight.origin.toLowerCase())
                 const flightDestination = this.locations.find(location => location.city.toLowerCase() === flight.destination.toLowerCase())
+                // Dont add duplicate markers
+                if (index === 0) {
+                    this.addMarker(flightOrigin)
+                    this.addMarker(flightDestination)
+                }
+                else {
+                    this.addMarker(flightDestination)
+                }
+
                 this.addPath(flightOrigin, flightDestination, this.colors[index])
             })
         })

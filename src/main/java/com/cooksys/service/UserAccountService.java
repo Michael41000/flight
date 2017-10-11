@@ -78,10 +78,31 @@ public class UserAccountService {
 		return false;
 	}
 
-	public List<ItineraryDto> getItinerary(String username) {
+	public List<Itinerary> getItineraries(String username) {
 		UserAccount user = getUser(username);
-		
-		return itineraryMapper.toDtos(user.getUserItineraries());
+		return user.getUserItineraries();
+	}
+
+	public boolean deleteItinerary(Long id, Credential credential) {
+		if (checkUserCredentials(credential.getUsername(), credential))
+		{
+			UserAccount userVerified = getUser(credential.getUsername());
+			List<Itinerary> userItineraries = userVerified.getUserItineraries();
+			for (int i = 0; i < userItineraries.size(); i++)
+			{
+				if (Long.compare(userItineraries.get(i).getId(), id) == 0)
+				{
+					System.out.println("Got it");
+					userItineraries.remove(i);
+					itineraryRepository.delete(id);
+					break;
+				}
+			}
+			userVerified.setUserItineraries(userItineraries);
+			userAccountRepository.save(userVerified);
+			return true;
+		}
+		return false;
 	}
 	
 

@@ -37,6 +37,23 @@ class UserService {
             .then(result => result.data)
     }
 
+    getItineraries(username) {
+        return this.$http
+        .get(`${this.apiUrl}/users/itineraries/` + username)
+        .then(result => result.data)
+    }
+
+    deleteItinerary(id, credential) {
+        return this.$http({
+            url: `${this.apiUrl}/users/itineraries/` + id,
+            method: 'DELETE',
+            data: credential,
+            headers: {
+                "Content-Type": "application/json;charset=utf-8"
+            }
+        })
+    }
+
     login(username, password) {
         this.username = username
         this.password = password
