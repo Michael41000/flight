@@ -39,7 +39,7 @@ public class FlightService {
 				return (int) (o1.getOffset() - o2.getOffset());
 			}
 		});
-		this.template.convertAndSend("/flights/change", "Flights Have Changed");
+		this.template.convertAndSend("/change/flights", "Flights Have Changed");
 	}
 
 	public List<Flight> getFlightsByOriginAndDestination(String origin, String destination) {

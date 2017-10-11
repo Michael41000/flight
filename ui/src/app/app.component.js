@@ -8,11 +8,11 @@ class AppController {
       $user.login($cookies.get('username'), $cookies.get('password'))
     }
 
-    const socket = new SockJS(apiUrl + '/gs-guide-websocket')
+    const socket = new SockJS(apiUrl + '/websocket')
     const stompClient = Stomp.over(socket)
     stompClient.connect({}, function (frame) {
       console.log('Connected: ' + frame);
-      stompClient.subscribe('/flights/change', function (greeting) {
+      stompClient.subscribe('/change/flights', function (greeting) {
         //console.log("in subscribe")  
         //console.log(greeting.body)
         $rootScope.$broadcast('flightsChanged')
