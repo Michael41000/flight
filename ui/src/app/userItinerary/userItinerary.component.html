@@ -10,7 +10,7 @@
     </thead>
 
     <tbody>
-        <tr ng-repeat="flight in $itineraryCtrl.itinerary.itinerary">
+        <tr ng-repeat="flight in $userItineraryCtrl.itinerary.itinerary">
             <td>{{ flight.origin | firstUpperRestLower }}</td>
             <td>{{ flight.destination | firstUpperRestLower }}</td>
             <td>{{ flight.flightTime }}</td>
@@ -19,21 +19,20 @@
         </tr>
         <tr>
             <th>Total Flight Time</th>
-            <td>{{ $itineraryCtrl.totalFlightTime }}</td>
+            <td>{{ $userItineraryCtrl.totalFlightTime }}</td>
         </tr>
         <tr>
             <th>Total Layover Time</th>
-            <td>{{ $itineraryCtrl.totalLayoverTime }}</td>
+            <td>{{ $userItineraryCtrl.totalLayoverTime }}</td>
         </tr>
         <tr>
-            <td ng-if="!$itineraryCtrl.mapisShown"><button ng-click="$itineraryCtrl.showMap()">Show Map</button></td>
-            <td ng-if="$itineraryCtrl.mapisShown"><button ng-click="$itineraryCtrl.hideMap()">Hide Map</button></td>
-            <td><button ng-click="$itineraryCtrl.bookItinerary()">Book Itinerary</button></td>
+            <td ng-if="!$userItineraryCtrl.mapisShown"><button ng-click="$userItineraryCtrl.showMap()">Show Map</button></td>
+            <td ng-if="$userItineraryCtrl.mapisShown"><button ng-click="$userItineraryCtrl.hideMap()">Hide Map</button></td>
+            <td><button ng-click="$userItineraryCtrl.unbookItinerary()">Unbook Itinerary</button></td>
         </tr>
-
     </tbody>
 </table>
 
-<div ng-if="$itineraryCtrl.mapisShown">
-    <flight-map flights="$itineraryCtrl.itinerary.itinerary"></flight-map>
+<div ng-if="$userItineraryCtrl.mapisShown">
+    <flight-map flights="$userItineraryCtrl.itinerary.itinerary"></flight-map>
 </div>

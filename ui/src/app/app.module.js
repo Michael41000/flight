@@ -8,6 +8,7 @@ import flightComponent from './flight/flight.module'
 import userService from './user/user.service'
 import itineraryListComponent from './itineraryList/itineraryList.module'
 import userItinerariesComponent from './userItineraries/userItineraries.module'
+import userItineraryComponent from './userItinerary/userItinerary.module'
 
 
 
@@ -33,7 +34,8 @@ export default
       itineraryListComponent,
       navbarComponent, 
       flightComponent,
-      userItinerariesComponent
+      userItinerariesComponent,
+      userItineraryComponent
     ])
     .config(routes)
     .constant('apiUrl', apiUrl)

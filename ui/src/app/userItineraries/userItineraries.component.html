@@ -1,10 +1,12 @@
 <div>
+    <p>Total Flight Time: {{ $userItinerariesCtrl.totalFlightTime }}</p>
+    <p>Total Layover Time: {{ $userItinerariesCtrl.totalLayoverTime }}</p>
     <p>Origin: <input type="text" size="20" ng-model="$userItinerariesCtrl.origin"></input>
     </p>
     <p>Destination: <input type="text" size="20" ng-model="$userItinerariesCtrl.destination"></input>
     </p>
     <button ng-click="$userItinerariesCtrl.getItineraries()">Search</button>
     <div ng-repeat="itinerary in $userItinerariesCtrl.itineraries">
-        <itinerary-component itinerary="itinerary"></itinerary-component>
+        <user-itinerary-component itinerary="itinerary"></user-itinerary-component>
     </div>
 </div>

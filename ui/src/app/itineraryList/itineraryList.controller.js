@@ -20,10 +20,8 @@ class ItineraryListController {
             this.noRoutes = this.itineraries.length === 0 ? true : false
             let i
             for (i = 0; i < this.itineraries.length; i++) {
-                console.log(this.itineraries[i])
                 let j;
                 for (j = 1; j < this.itineraries[i].itinerary.length; j++) {
-                    console.log(this.itineraries[i].itinerary[j])
                     this.itineraries[i].itinerary[j].layoverTime = this.itineraries[i].itinerary[j].offset - (this.itineraries[i].itinerary[j - 1].offset + this.itineraries[i].itinerary[j - 1].flightTime)
                 }
             }

@@ -1,14 +1,13 @@
 /* @ngInject */
-class ItineraryController {
+class UserItineraryController {
     constructor($user, $state) {
         this.mapisShown = false
         this.$user = $user
         this.$state = $state
-
-        
     }
 
     $onInit() {
+        console.log(this.itinerary.itinerary)
         const totals = this.itinerary.itinerary.reduce((previous, current) => {
             previous[0] += current.flightTime
             if (current.layoverTime !== undefined)
@@ -30,18 +29,6 @@ class ItineraryController {
         this.mapisShown = false;
     }
 
-    bookItinerary() {
-        console.log('hello')
-        const itineraryCredential = {}
-        itineraryCredential.itinerary = this.itinerary
-        itineraryCredential.credential = {}
-        itineraryCredential.credential.username = this.$user.username
-        itineraryCredential.credential.password = this.$user.password
-        this.$user.saveItinerary(itineraryCredential).then((done) => {
-            console.log(done)
-        })
-    }
-
     unbookItinerary() {
         console.log(this.itinerary)
         const credential = {}
@@ -53,4 +40,4 @@ class ItineraryController {
     }
 }
 
-export default ItineraryController
+export default UserItineraryController
