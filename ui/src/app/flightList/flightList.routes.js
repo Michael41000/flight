@@ -1,8 +1,8 @@
 routes.$inject = ['$stateProvider'];
 export default function routes($stateProvider) {
   $stateProvider
-  .state('itineraryState', {
-    url: '/itinerary',
-    component: 'itineraryComponent'
+  .state('flightListState', {
+    url: '/flights',
+    component: 'flightListComponent'
   })
 }

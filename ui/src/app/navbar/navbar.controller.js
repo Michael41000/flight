@@ -1,8 +1,7 @@
 /* @ngInject */
 class NavbarController {
 
-    constructor($navbar, $user, $state) {
-        this.$navbar = $navbar
+    constructor($user, $state) {
         this.$user = $user
         this.$state = $state
         console.log(this.$user.isLoggedIn)

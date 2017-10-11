@@ -43,7 +43,9 @@ class UserService {
         this.$cookies.put('username', this.username)
         this.$cookies.put('password', this.password)
         this.isLoggedIn = true
-        this.$state.go('allFlightsState')
+        this.$state.go('flightListState', {
+            reload: true
+        })
     }
 
     logout() {
@@ -52,6 +54,9 @@ class UserService {
         this.$cookies.remove('username')
         this.$cookies.remove('password')
         this.isLoggedIn = false
+        this.$state.go('signInSignUpState', {
+            reload: true
+        })
     }
 
 }

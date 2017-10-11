@@ -1,13 +1,33 @@
-<div>
-        <p>Origin: <input type="text" size="20" ng-model="$itineraryCtrl.origin"></input>
-        </p>
-        <p>Destination: <input type="text" size="20" ng-model="$itineraryCtrl.destination"></input>
-        </p>
-        <button ng-click="$itineraryCtrl.getItineraries()">Search</button>
-        <div ng-repeat="flights in $itineraryCtrl.itineraries">
-                <flight-list-component flights="flights"></flight-list-component>
-        </div>
-        <div ng-if="$itineraryCtrl.noRoutes">
-                No routes available from {{ $itineraryCtrl.origin | firstUpperRestLower }} to {{ $itineraryCtrl.destination | firstUpperRestLower }}
-        </div>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Origin</th>
+            <th>Destination</th>
+            <th>Flight Time</th>
+            <th>Departure Time</th>
+            <th>Layover Time</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr ng-repeat="flight in $itineraryCtrl.itinerary.itinerary">
+            <td>{{ flight.origin | firstUpperRestLower }}</td>
+            <td>{{ flight.destination | firstUpperRestLower }}</td>
+            <td>{{ flight.flightTime }}</td>
+            <td>{{ flight.offset }}</td>
+            <td>{{ flight.layoverTime }}</td>
+
+        </tr>
+        <tr>
+            <td ng-if="!$itineraryCtrl.mapisShown"><button ng-click="$itineraryCtrl.showMap()">Show Map</button></td>
+            <td ng-if="$itineraryCtrl.mapisShown"><button ng-click="$itineraryCtrl.hideMap()">Hide Map</button></td>
+            <td><button ng-click="$itineraryCtrl.bookItinerary()">Book Itinerary</button></td>
+        </tr>
+    </tbody>
+</table>
+
+<div ng-if="$itineraryCtrl.mapisShown">
+    <flight-map flights="$itineraryCtrl.flights"></flight-map>
 </div>
+
+

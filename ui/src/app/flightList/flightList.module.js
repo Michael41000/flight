@@ -1,10 +1,11 @@
 import flightListComponent from './flightList.component'
-import itineraryService from './../itinerary/itinerary.service'
-import userService from './../user/user.service'
+import flightsService from './../flights/flights.service'
+import routes from './flightList.routes'
 
 export default
   angular
     .module('flight.flightList', ['ui.router'])
+    .config(routes)
     .filter('firstUpperRestLower', [function () {
       return function (string) {
         if (string !== undefined)
@@ -12,5 +13,5 @@ export default
       }
     }])
     .component('flightListComponent', flightListComponent)
-    .service('$user', userService)
+    .service('$flights', flightsService)
     .name

@@ -1,11 +1,9 @@
-import itineraryComponent from './itinerary.component.js'
-import itineraryService from './itinerary.service'
-import routes from './itinerary.routes'
+import itineraryComponent from './itinerary.component'
+import userService from './../user/user.service'
 
 export default
   angular
     .module('flight.itinerary', ['ui.router'])
-    .config(routes)
     .filter('firstUpperRestLower', [function () {
       return function (string) {
         if (string !== undefined)
@@ -13,5 +11,5 @@ export default
       }
     }])
     .component('itineraryComponent', itineraryComponent)
-    .service('$itinerary', itineraryService)
+    .service('$user', userService)
     .name

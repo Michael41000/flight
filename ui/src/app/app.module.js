@@ -6,6 +6,7 @@ import itineraryComponent from './itinerary/itinerary.module'
 import navbarComponent from './navbar/navbar.module'
 import flightComponent from './flight/flight.module'
 import userService from './user/user.service'
+import itineraryListComponent from './itineraryList/itineraryList.module'
 
 
 
@@ -28,6 +29,7 @@ export default
       signInSignUpComponent,
       searchComponent,
       itineraryComponent,
+      itineraryListComponent,
       navbarComponent, 
       flightComponent,
     ])

@@ -4,39 +4,32 @@
     <ul class="nav navbar-nav">
         <li>
             <div class="navbar-brand">
-                <a ui-sref="allFlightsState" ui-sref-opts="{reload: true}">
+                <a ui-sref="flightListState" ui-sref-opts="{reload: true}">
                     <font size="5">Flight App</font>
                 </a>
             </div>
         </li>
         <li>
             <div class="navbar-brand">
-                <a ui-sref="allFlightsState" ui-sref-opts="{reload: true}">
-                    <font size="2">All Flights</font>
+                <a ui-sref="flightListState" ui-sref-opts="{reload: true}">
+                    <font size="2">Flights</font>
                 </a>
             </div>
         </li>
         <li ng-if=$navbarCtrl.$user.isLoggedIn>
             <div class="navbar-brand">
-                <a ui-sref="allFlightsState" ui-sref-opts="{reload: true}">
-                    <font size="2">Search Flights</font>
-                </a>
-            </div>
-        </li>
-        <li ng-if=$navbarCtrl.$user.isLoggedIn>
-            <div class="navbar-brand">
-                <a ui-sref="itineraryState" ui-sref-opts="{reload: true}">
+                <a ui-sref="itineraryListState" ui-sref-opts="{reload: true}">
                     <font size="2">Search Itineraries</font>
                 </a>
             </div>
         </li>
         <li ng-if=$navbarCtrl.$user.isLoggedIn>
-                <div class="navbar-brand">
-                    <a ui-sref="userItinerariesState" ui-sref-opts="{reload: true}">
-                        <font size="2">My Itineraries</font>
-                    </a>
-                </div>
-            </li>
+            <div class="navbar-brand">
+                <a ui-sref="userItinerariesState" ui-sref-opts="{reload: true}">
+                    <font size="2">My Itineraries</font>
+                </a>
+            </div>
+        </li>
         <li ng-if=!$navbarCtrl.$user.isLoggedIn>
             <div class="navbar-brand">
                 <a ui-sref="signInSignUpState">
@@ -46,7 +39,7 @@
         </li>
         <li ng-if=$navbarCtrl.$user.isLoggedIn>
             <div class="navbar-brand">
-                <a ng-click="$navbarCtrl.logout()">
+                <a ng-click="$navbarCtrl.$user.logout()">
                     <font size="2">Logout</font>
                 </a>
             </div>

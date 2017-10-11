@@ -1,0 +1,13 @@
+<div>
+        <p>Origin: <input type="text" size="20" ng-model="$itineraryListCtrl.origin"></input>
+        </p>
+        <p>Destination: <input type="text" size="20" ng-model="$itineraryListCtrl.destination"></input>
+        </p>
+        <button ng-click="$itineraryListCtrl.getItineraries()">Search</button>
+        <div ng-repeat="itinerary in $itineraryListCtrl.itineraries">
+                <itinerary-component itinerary="itinerary"></itinerary-component>
+        </div>
+        <div ng-if="$itineraryListCtrl.noRoutes">
+                No routes available from {{ $itineraryCtrl.origin | firstUpperRestLower }} to {{ $itineraryCtrl.destination | firstUpperRestLower }}
+        </div>
+</div>
