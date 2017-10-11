@@ -1,4 +1,5 @@
-<div map-lazy-load="https://maps.google.com/maps/api/js">
+<div map-lazy-load="https://maps.google.com/maps/api/js"
+    map-lazy-load-params="{{googleMapsUrl}}">
     <ng-map center="{{$mapCtrl.center}}" zoom="{{$mapCtrl.zoom}}">
         <marker ng-repeat="$mapMarker in $mapCtrl.markers" position="{{$mapMarker.position}}">
         </marker>

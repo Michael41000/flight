@@ -28,16 +28,6 @@ class UserItineraryController {
     hideMap() {
         this.mapisShown = false;
     }
-
-    unbookItinerary() {
-        console.log(this.itinerary)
-        const credential = {}
-        credential.username = this.$user.username
-        credential.password = this.$user.password
-        this.$user.deleteItinerary(this.itinerary.id, credential).then((done) => {
-            this.$state.reload()
-        })
-    }
 }
 
 export default UserItineraryController

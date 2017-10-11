@@ -1,6 +1,6 @@
 /* @ngInject */
 class FlightListController {
-    constructor($flights, $rootScope) {
+    constructor($flights, $scope) {
         this.$flights = $flights
 
         this.origin = ''
@@ -8,7 +8,7 @@ class FlightListController {
 
         this.searchFlights()
 
-        $rootScope.$on('flightsChanged', (event) => {
+        $scope.$on('flightsChanged', (event) => {
             console.log('flightsChanged')
             this.searchFlights()
         })
@@ -19,25 +19,21 @@ class FlightListController {
         const destination = this.destination.trim()
         if (origin === '' && destination === '') {
             this.$flights.getFlights().then((done) => {
-                console.log(done)
                 this.flights = done
             })
         }
         else if (origin !== '' && destination === '') {
             this.$flights.getFlightsByOriginStartsWith(origin).then((done) => {
-                console.log(done)
                 this.flights = done
             })
         }
         else if (origin === '' && destination !== '') {
             this.$flights.getFlightsByDestinationStartsWith(destination).then((done) => {
-                console.log(done)
                 this.flights = done
             })
         }
         else {
             this.$flights.getFlightsByOriginStartsWithAndDestinationStartsWith(origin, destination).then((done) => {
-                console.log(done)
                 this.flights = done
             })
         }

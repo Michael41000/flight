@@ -42,6 +42,14 @@ public class Itinerary {
 		this.itinerary = itinerary;
 	}
 
+	public Timestamp getTimeAdded() {
+		return timeAdded;
+	}
+
+	public void setTimeAdded(Timestamp timeAdded) {
+		this.timeAdded = timeAdded;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

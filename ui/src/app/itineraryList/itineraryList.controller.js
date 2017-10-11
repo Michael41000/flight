@@ -1,19 +1,24 @@
 /* @ngInject */
 class ItineraryListController {
 
-    constructor($itinerary) {
+    constructor($itinerary, $scope) {
         this.$itinerary = $itinerary
         this.noRoutes = false
-    }
+        this.searchPressed = false
 
-    getFastestItinerary() {
-        this.$itinerary.getFastestItinerary(this.origin, this.destination).then((done) => {
-            this.flights = done
-            console.log(this.flights)
+        $scope.$on('flightsChanged', (event) => {
+            console.log('flightsChanged')
+            if (this.searchPressed)
+            {
+                this.getItineraries()
+            }
         })
     }
 
+
+
     getItineraries() {
+        this.searchPressed = true
         this.$itinerary.getItineraries(this.origin, this.destination).then((done) => {
             console.log(done)
             this.itineraries = done
@@ -31,6 +36,8 @@ class ItineraryListController {
 
     changedSearch() {
         this.noRoutes = false
+        this.searchPressed = false
+        this.itineraries = undefined
     }
 }
 

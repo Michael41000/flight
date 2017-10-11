@@ -1,6 +1,7 @@
 package com.cooksys.service;
 
 import java.sql.Timestamp;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
@@ -80,6 +81,13 @@ public class UserAccountService {
 
 	public List<Itinerary> getItineraries(String username) {
 		UserAccount user = getUser(username);
+		List<Itinerary> userItineraries = user.getUserItineraries();
+		userItineraries.sort(new Comparator<Itinerary>() {
+			@Override
+			public int compare(Itinerary o1, Itinerary o2) {
+				return o2.getTimeAdded().compareTo(o1.getTimeAdded());
+			}
+		});
 		return user.getUserItineraries();
 	}
 

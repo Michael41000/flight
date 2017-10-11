@@ -8,6 +8,7 @@ class MapController {
     constructor($map) {
         this.$map = $map
         this.colors = ['#CC0099', '#AA1100', '#FF3388']
+        this.googleMapsUrl = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBZvZmFk5Ut1EXgORPuYin62ZdCVQ8d5J8"
     }
 
     $onInit() {
