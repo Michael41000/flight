@@ -10,7 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.cooksys.component.FlightGenerator;
-import com.cooksys.entity.Flight;
+import com.cooksys.dto.Flight;
 
 @Service
 public class FlightService {

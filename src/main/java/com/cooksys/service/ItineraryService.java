@@ -14,9 +14,11 @@ import java.util.Stack;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cooksys.dto.Flight;
 import com.cooksys.dto.ItineraryDto;
-import com.cooksys.entity.Flight;
 import com.cooksys.entity.Itinerary;
+import com.cooksys.entity.ItineraryFlight;
+import com.cooksys.mapper.FlightMapper;
 import com.cooksys.mapper.ItineraryMapper;
 
 @Service
@@ -27,6 +29,9 @@ public class ItineraryService {
 	
 	@Autowired
 	ItineraryMapper itineraryMapper;
+	
+	@Autowired
+	FlightMapper flightMapper;
 	
 	public List<Flight> getFastest(String origin, String destination) {
 		List<Flight> originFlights = flightService.getFlightsByOrigin(origin);
@@ -91,26 +96,26 @@ public class ItineraryService {
 				Long timeTakenOne;
 				if (o1.getItinerary().size() == 1)
 				{
-					Flight onlyFlight = o1.getItinerary().get(0);
+					ItineraryFlight onlyFlight = o1.getItinerary().get(0);
 					timeTakenOne = onlyFlight.getFlightTime();
 				}
 				else
 				{
-					Flight firstFlight = o1.getItinerary().get(0);
-					Flight lastFlight = o1.getItinerary().get(o1.getItinerary().size() - 1);
+					ItineraryFlight firstFlight = o1.getItinerary().get(0);
+					ItineraryFlight lastFlight = o1.getItinerary().get(o1.getItinerary().size() - 1);
 					timeTakenOne = (lastFlight.getOffset() + lastFlight.getFlightTime()) - firstFlight.getOffset();
 				}
 				
 				Long timeTakenTwo;
 				if (o2.getItinerary().size() == 1)
 				{
-					Flight onlyFlight = o2.getItinerary().get(0);
+					ItineraryFlight onlyFlight = o2.getItinerary().get(0);
 					timeTakenTwo = onlyFlight.getFlightTime();
 				}
 				else
 				{
-					Flight firstFlight = o2.getItinerary().get(0);
-					Flight lastFlight = o2.getItinerary().get(o2.getItinerary().size() - 1);
+					ItineraryFlight firstFlight = o2.getItinerary().get(0);
+					ItineraryFlight lastFlight = o2.getItinerary().get(o2.getItinerary().size() - 1);
 					timeTakenTwo = (lastFlight.getOffset() + lastFlight.getFlightTime()) - firstFlight.getOffset();
 				}
 				
@@ -242,17 +247,40 @@ public class ItineraryService {
 				return null;
 			}
 			backwardsItinerary.add(currentNode.data);
-			
 			currentNode = currentNode.parent;
 		}
-		List<Flight> itineraryList = new ArrayList<Flight>();
+		List<Flight> flightList = new ArrayList<Flight>();
 		while(backwardsItinerary.isEmpty() == false)
 		{
-			itineraryList.add(backwardsItinerary.pop());
+			flightList.add(backwardsItinerary.pop());
 		}
 		
+		Long totalFlightTime = (long) 0;
+		for(int i = 0; i < flightList.size(); i++)
+		{
+			totalFlightTime += flightList.get(i).getFlightTime();
+		}
+		
+		List<ItineraryFlight> itineraryFlightList = new ArrayList<ItineraryFlight>();
+		itineraryFlightList.add(flightMapper.toItineraryFlight(flightList.get(0), null));
+		Long totalLayoverTime = (long) 0;
+		for(int i = 1; i < flightList.size(); i++)
+		{
+			Flight currentFlight = flightList.get(i);
+			Flight previousFlight = flightList.get(i - 1);
+			Long currentLayoverTime = currentFlight.getOffset() - (previousFlight.getOffset() + previousFlight.getFlightTime());
+			totalLayoverTime += currentLayoverTime;
+			itineraryFlightList.add(flightMapper.toItineraryFlight(currentFlight, currentLayoverTime));
+		}
+		
+		
+		
+		
+		
 		Itinerary itinerary = new Itinerary();
-		itinerary.setItinerary(itineraryList);
+		itinerary.setItinerary(itineraryFlightList);
+		itinerary.setTotalFlightTime(totalFlightTime);
+		itinerary.setTotalLayoverTime(totalLayoverTime);
 		return itinerary;
 	}
 	

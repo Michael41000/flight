@@ -10,10 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cooksys.dto.Credential;
+import com.cooksys.dto.Flight;
 import com.cooksys.dto.ItineraryCredentialDto;
 import com.cooksys.dto.ItineraryDto;
-import com.cooksys.entity.Flight;
 import com.cooksys.entity.Itinerary;
+import com.cooksys.entity.ItineraryFlight;
 import com.cooksys.entity.UserAccount;
 import com.cooksys.mapper.ItineraryMapper;
 import com.cooksys.repository.ItineraryRepository;
@@ -113,7 +114,7 @@ public class UserAccountService {
 
 		List<ItineraryDto> originItineraries = new ArrayList<ItineraryDto>();
 		for (int i = 0; i < userItineraries.size(); i++) {
-			List<Flight> currentIninerary = userItineraries.get(i).getItinerary();
+			List<ItineraryFlight> currentIninerary = userItineraries.get(i).getItinerary();
 			String currentOrigin = currentIninerary.get(0).getOrigin();
 			if (currentOrigin.toLowerCase().startsWith(origin.toLowerCase())) {
 				originItineraries.add(userItineraries.get(i));
@@ -128,7 +129,7 @@ public class UserAccountService {
 
 		List<ItineraryDto> destinationItineraries = new ArrayList<ItineraryDto>();
 		for (int i = 0; i < userItineraries.size(); i++) {
-			List<Flight> currentIninerary = userItineraries.get(i).getItinerary();
+			List<ItineraryFlight> currentIninerary = userItineraries.get(i).getItinerary();
 			String currentDestination = currentIninerary.get(currentIninerary.size() - 1).getDestination();
 			if (currentDestination.toLowerCase().startsWith(destination.toLowerCase())) {
 				destinationItineraries.add(userItineraries.get(i));
@@ -144,7 +145,7 @@ public class UserAccountService {
 
 		List<ItineraryDto> originDestinationItineraries = new ArrayList<ItineraryDto>();
 		for (int i = 0; i < userItineraries.size(); i++) {
-			List<Flight> currentIninerary = userItineraries.get(i).getItinerary();
+			List<ItineraryFlight> currentIninerary = userItineraries.get(i).getItinerary();
 			String currentOrigin = currentIninerary.get(0).getOrigin();
 			String currentDestination = currentIninerary.get(currentIninerary.size() - 1).getDestination();
 			if (currentOrigin.toLowerCase().startsWith(origin.toLowerCase()) && currentDestination.toLowerCase().startsWith(destination.toLowerCase())) {

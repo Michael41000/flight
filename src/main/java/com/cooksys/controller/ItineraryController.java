@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cooksys.dto.Flight;
 import com.cooksys.dto.ItineraryDto;
-import com.cooksys.entity.Flight;
 import com.cooksys.entity.Itinerary;
 import com.cooksys.service.ItineraryService;
 

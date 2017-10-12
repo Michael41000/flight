@@ -23,7 +23,6 @@ export default
       'ngMessages',
       'ui.router',
       'ngCookies',
-      'ngStomp',
 
       flightMap,
       flightListComponent,

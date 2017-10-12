@@ -1,6 +1,6 @@
 /* @ngInject */
 class AppController {
-    constructor($log, $user, $cookies, $stomp, apiUrl, $rootScope) {
+    constructor($log, $user, $cookies, apiUrl, $rootScope) {
         $log.debug('AppController is a go.')
         if ($cookies.get('username') !== undefined && $cookies.get('password') !== undefined) {
             $user.login($cookies.get('username'), $cookies.get('password'))

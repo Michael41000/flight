@@ -20,10 +20,14 @@ public class Itinerary {
 	private long id;
 
 	@ElementCollection
-	private List<Flight> itinerary;
+	private List<ItineraryFlight> itinerary;
 	
 	@CreationTimestamp
 	private Timestamp timeAdded;
+	
+	private Long totalFlightTime;
+	
+	private Long totalLayoverTime;
 
 	public long getId() {
 		return id;
@@ -34,11 +38,11 @@ public class Itinerary {
 	}
 
 	
-	public List<Flight> getItinerary() {
+	public List<ItineraryFlight> getItinerary() {
 		return itinerary;
 	}
 
-	public void setItinerary(List<Flight> itinerary) {
+	public void setItinerary(List<ItineraryFlight> itinerary) {
 		this.itinerary = itinerary;
 	}
 
@@ -48,6 +52,22 @@ public class Itinerary {
 
 	public void setTimeAdded(Timestamp timeAdded) {
 		this.timeAdded = timeAdded;
+	}
+	
+	public Long getTotalFlightTime() {
+		return totalFlightTime;
+	}
+
+	public void setTotalFlightTime(Long totalFlightTime) {
+		this.totalFlightTime = totalFlightTime;
+	}
+
+	public Long getTotalLayoverTime() {
+		return totalLayoverTime;
+	}
+
+	public void setTotalLayoverTime(Long totalLayoverTime) {
+		this.totalLayoverTime = totalLayoverTime;
 	}
 
 	@Override

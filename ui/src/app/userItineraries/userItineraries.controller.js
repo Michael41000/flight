@@ -48,18 +48,8 @@ class UserItinerariesController {
         this.totalFlightTime = 0
         this.totalLayoverTime = 0
         for (let i = 0; i < this.itineraries.length; i++) {
-            for (let j = 1; j < this.itineraries[i].itinerary.length; j++) {
-                this.itineraries[i].itinerary[j].layoverTime = this.itineraries[i].itinerary[j].offset - (this.itineraries[i].itinerary[j - 1].offset + this.itineraries[i].itinerary[j - 1].flightTime)
-            }
-            const totals = this.itineraries[i].itinerary.reduce((previous, current) => {
-                previous[0] += current.flightTime
-                if (current.layoverTime !== undefined) {
-                    previous[1] += current.layoverTime
-                }
-                return previous
-            }, [0, 0])
-            this.totalFlightTime += totals[0]
-            this.totalLayoverTime += totals[1]
+            this.totalFlightTime += this.itineraries[i].totalFlightTime
+            this.totalLayoverTime += this.itineraries[i].totalLayoverTime
         }
     }
 }
