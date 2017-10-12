@@ -1,23 +1,25 @@
-<p>Origin: <input type="text" size="20" ng-model="$flightListCtrl.origin" ng-change="$flightListCtrl.searchFlights()"></input>
-</p>
-<p>Destination: <input type="text" size="20" ng-model="$flightListCtrl.destination" ng-change="$flightListCtrl.searchFlights()"></input>
-</p>
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Origin</th>
-            <th>Destination</th>
-            <th>Flight Time</th>
-            <th>Departure Time</th>
-        </tr>
-    </thead>
+<div class="container">
+    <p><input type="text" size="20" ng-model="$flightListCtrl.origin" ng-change="$flightListCtrl.searchFlights()" placeholder="Origin"></input>
+    </p>
+    <p><input type="text" size="20" ng-model="$flightListCtrl.destination" ng-change="$flightListCtrl.searchFlights()" placeholder="Destination"></input>
+    </p>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Origin</th>
+                <th>Destination</th>
+                <th>Flight Time</th>
+                <th>Departure Time</th>
+            </tr>
+        </thead>
 
-    <tbody>
-        <tr ng-repeat="flight in $flightListCtrl.flights">
-            <td>{{ flight.origin | firstUpperRestLower }}</td>
-            <td>{{ flight.destination | firstUpperRestLower }}</td>
-            <td>{{ flight.flightTime }}</td>
-            <td>{{ flight.offset }}</td>
-        </tr>
-    </tbody>
-</table>
+        <tbody>
+            <tr ng-repeat="flight in $flightListCtrl.flights">
+                <td ng-class-odd="'oddRow'">{{ flight.origin | firstUpperRestLower }}</td>
+                <td ng-class-odd="'oddRow'">{{ flight.destination | firstUpperRestLower }}</td>
+                <td ng-class-odd="'oddRow'">{{ flight.flightTime }}</td>
+                <td ng-class-odd="'oddRow'">{{ flight.offset }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

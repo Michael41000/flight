@@ -2,30 +2,26 @@
 <nav class="navbar navbar-inverse" role="navigation">
 
     <ul class="nav navbar-nav">
+        <div class="navbar-header">
+            <span class="navbar-brand"><span class="glyphicon glyphicon-plane"></span><font size="5">Flight</font></span>
+        </div>
         <li>
             <div class="navbar-brand">
-                <a ui-sref="flightListState" ui-sref-opts="{reload: true}">
-                    <font size="5">Flight App</font>
-                </a>
-            </div>
-        </li>
-        <li>
-            <div class="navbar-brand">
-                <a ui-sref="flightListState" ui-sref-opts="{reload: true}">
+                <a ui-sref="flightListState">
                     <font size="2">Flights</font>
                 </a>
             </div>
         </li>
         <li ng-if=$navbarCtrl.$user.isLoggedIn>
             <div class="navbar-brand">
-                <a ui-sref="itineraryListState" ui-sref-opts="{reload: true}">
+                <a ui-sref="itineraryListState">
                     <font size="2">Search Itineraries</font>
                 </a>
             </div>
         </li>
         <li ng-if=$navbarCtrl.$user.isLoggedIn>
             <div class="navbar-brand">
-                <a ui-sref="userItinerariesState" ui-sref-opts="{reload: true}">
+                <a ui-sref="userItinerariesState">
                     <font size="2">My Itineraries</font>
                 </a>
             </div>

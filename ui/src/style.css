@@ -2,4 +2,93 @@ a {
     cursor: pointer;
 }
 
+.oddRow {
+    background-color: lightgray
+}
 
+.evenRow {
+    background-color: lightgray
+}
+
+.noHoriz > td,
+.noHoriz > th {
+    border-top: none !important;
+    border-bottom: none !important;
+}
+
+.noHorizTop > td,
+.noHorizTop > th {
+    border-top: none !important;
+}
+
+.noHorizBottom > td,
+.noHorizBottom > th {
+    border-bottom: none !important;
+}
+
+
+
+
+.horiz > td,
+.horiz > th {
+    border-bottom: 2px solid lightgray !important;
+    border-top: 2px solid lightgray !important;
+}
+
+.horizBottom > td,
+.horizBottom > th {
+    border-bottom: 2px solid lightgray !important;
+}
+
+.horizTop > td,
+.horizTop > th {
+    border-top: 2px solid lightgray !important;
+}
+
+.vertical > td,
+.vertical > th {
+    border-left: 2px solid lightgray !important;
+    border-right: 2px solid lightgray !important;
+}
+
+.verticalRight {
+    border-right: 2px solid lightgray !important;
+}
+
+.verticalLeft {
+    border-left: 2px solid lightgray !important;
+}
+
+.borderTable {
+    border-top: 2px solid lightgray !important;
+}
+
+.marginBottom {
+    margin-bottom: 10px;
+}
+
+.width20 {
+    display: inline-block;
+    width: 20%;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.rightAlign {
+    text-align: right;
+}
+
+.width100 {
+    width: 100%;
+}
+
+button {
+    width: 125px;
+    background-color: lightgray !important;
+}
+
+.navbarIcon {
+    color: white;
+}

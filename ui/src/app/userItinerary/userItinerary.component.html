@@ -1,6 +1,6 @@
-<table class="table table-bordered">
+<table class="table borderTable">
     <thead>
-        <tr>
+        <tr class="horiz vertical">
             <th>Origin</th>
             <th>Destination</th>
             <th>Flight Time</th>
@@ -10,28 +10,37 @@
     </thead>
 
     <tbody>
-        <tr ng-repeat="flight in $userItineraryCtrl.itinerary.itinerary">
+        <tr ng-repeat="flight in $userItineraryCtrl.itinerary.itinerary" class="horiz vertical">
             <td>{{ flight.origin | firstUpperRestLower }}</td>
             <td>{{ flight.destination | firstUpperRestLower }}</td>
-            <td>{{ flight.flightTime }}</td>
-            <td>{{ flight.offset }}</td>
-            <td>{{ flight.layoverTime }}</td>
+            <td class="rightAlign">{{ flight.flightTime }}</td>
+            <td class="rightAlign">{{ flight.offset }}</td>
+            <td class="rightAlign">{{ flight.layoverTime }}</td>
         </tr>
-        <tr>
-            <th>Total Flight Time</th>
-            <td>{{ $userItineraryCtrl.totalFlightTime }}</td>
+        <tr class="noHorizBottom">
+            <th class="verticalLeft">Total Flight Time</th>
+            <td class="rightAlign">{{ $userItineraryCtrl.totalFlightTime }}</td>
+            <td colspan="2"></td>
+            <td class="verticalRight"></td>
         </tr>
-        <tr>
-            <th>Total Layover Time</th>
-            <td>{{ $userItineraryCtrl.totalLayoverTime }}</td>
+        <tr class="noHorizBottom noHorizTop">
+            <th class="verticalLeft">Total Layover Time</th>
+            <td class="rightAlign">{{ $userItineraryCtrl.totalLayoverTime }}</td>
+            <td colspan="2"></td>
+            <td class="verticalRight"></td>
         </tr>
-        <tr>
-            <td ng-if="!$userItineraryCtrl.mapisShown"><button ng-click="$userItineraryCtrl.showMap()">Show Map</button></td>
-            <td ng-if="$userItineraryCtrl.mapisShown"><button ng-click="$userItineraryCtrl.hideMap()">Hide Map</button></td>
+        <tr class="horiz">
+            <td class="verticalLeft" ng-if="!$userItineraryCtrl.mapisShown">
+                <button class="btn btn-default" ng-click="$userItineraryCtrl.showMap()">Show Map</button>
+            </td>
+            <td class="verticalLeft" ng-if="$userItineraryCtrl.mapisShown">
+                <button class="btn btn-default" ng-click="$userItineraryCtrl.hideMap()">Hide Map</button>
+            </td>
+            <td colspan="3"></td>
+            <td class="verticalRight"></td>
+        </tr>
+        <tr class="vertical horiz" ng-if="$userItineraryCtrl.mapisShown">
+            <td colspan="5"><flight-map flights="$userItineraryCtrl.itinerary.itinerary"></flight-map></td>
         </tr>
     </tbody>
 </table>
-
-<div ng-if="$userItineraryCtrl.mapisShown">
-    <flight-map flights="$userItineraryCtrl.itinerary.itinerary"></flight-map>
-</div>

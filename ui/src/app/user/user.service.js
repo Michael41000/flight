@@ -39,8 +39,26 @@ class UserService {
 
     getItineraries(username) {
         return this.$http
-        .get(`${this.apiUrl}/users/itineraries/` + username)
-        .then(result => result.data)
+            .get(`${this.apiUrl}/users/itineraries/` + username)
+            .then(result => result.data)
+    }
+
+    getItinerariesByOriginStartsWith(username, origin) {
+        return this.$http
+            .get(`${this.apiUrl}/users/itineraries/` + username + '/origin/' + origin)
+            .then(result => result.data)
+    }
+
+    getItinerariesByDestinationStartsWith(username, destination) {
+        return this.$http
+            .get(`${this.apiUrl}/users/itineraries/` + username + '/destination/' + destination)
+            .then(result => result.data)
+    }
+
+    getItinerariesByOriginStartsWithAndDestinationStartsWith(username, origin, destination) {
+        return this.$http
+            .get(`${this.apiUrl}/users/itineraries/` + username + '/origin/' + origin + '/destination/' + destination)
+            .then(result => result.data)
     }
 
     deleteItinerary(id, credential) {

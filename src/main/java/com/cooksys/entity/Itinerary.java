@@ -20,10 +20,10 @@ public class Itinerary {
 	private long id;
 
 	@ElementCollection
-	List<Flight> itinerary;
+	private List<Flight> itinerary;
 	
 	@CreationTimestamp
-	Timestamp timeAdded;
+	private Timestamp timeAdded;
 
 	public long getId() {
 		return id;

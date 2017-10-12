@@ -1,10 +1,10 @@
-<div>
-    <p>Username: <input type="text" size="20" ng-model="$signInSignUpCtrl.username"></input>
+<div class="container">
+    <p><input type="username" size="20" ng-model="$signInSignUpCtrl.username" placeholder="Username"></input>
     </p>
-    <p>Password: <input type="text" size="20" ng-model="$signInSignUpCtrl.password"></input>
+    <p><input type="password" size="20" ng-model="$signInSignUpCtrl.password" placeholder="Password"></input>
     </p>
-    <button ng-click="$signInSignUpCtrl.signIn()">Sign In</button>
-    <button ng-click="$signInSignUpCtrl.signUp()">Sign Up</button>
+    <button class="btn btn-default" ng-click="$signInSignUpCtrl.signIn()">Sign In</button>
+    <button class="btn btn-default" ng-click="$signInSignUpCtrl.signUp()">Sign Up</button>
     <div ng-if=$signInSignUpCtrl.failedSignIn>User not found</div>
     <div ng-if=$signInSignUpCtrl.failedSignUp>Username taken</div>
 </div>

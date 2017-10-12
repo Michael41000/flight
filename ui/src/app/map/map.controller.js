@@ -16,6 +16,8 @@ class MapController {
         this.$map.getLocations().then((done) => {
             console.log(done)
             this.locations = done
+            let centerLatitude = 0
+            let centerLongitude = 0
             this.flights.forEach((flight, index) => {
                 const flightOrigin = this.locations.find(location => location.city.toLowerCase() === flight.origin.toLowerCase())
                 const flightDestination = this.locations.find(location => location.city.toLowerCase() === flight.destination.toLowerCase())
@@ -23,13 +25,19 @@ class MapController {
                 if (index === 0) {
                     this.addMarker(flightOrigin)
                     this.addMarker(flightDestination)
+                    centerLatitude += Number(flightOrigin.latitude)
+                    centerLatitude += Number(flightDestination.latitude)
+                    centerLongitude += Number(flightOrigin.longitude)
+                    centerLongitude += Number(flightDestination.longitude)
                 }
                 else {
                     this.addMarker(flightDestination)
+                    centerLatitude += Number(flightDestination.latitude)
+                    centerLongitude += Number(flightDestination.longitude)
                 }
-
                 this.addPath(flightOrigin, flightDestination, this.colors[index])
             })
+            this.center = [centerLatitude/(this.flights.length + 1), centerLongitude/(this.flights.length + 1)]
         })
     }
 

@@ -71,7 +71,7 @@ public class UserAccountController {
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/itineraries/{username}")
-	public List<Itinerary> getItineraries(@PathVariable String username)
+	public List<ItineraryDto> getItineraries(@PathVariable String username)
 	{
 		return userAccountService.getItineraries(username);
 	}
@@ -81,5 +81,24 @@ public class UserAccountController {
 	{
 		return userAccountService.deleteItinerary(id, credential);
 	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/itineraries/{username}/origin/{origin}")
+	public List<ItineraryDto> getItinerariesByOriginStartsWith(@PathVariable("username") String username, @PathVariable("origin") String origin)
+	{
+		return userAccountService.getItinerariesByOriginStartsWith(username, origin);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/itineraries/{username}/destination/{destination}")
+	public List<ItineraryDto> getItinerariesByDestinationStartsWith(@PathVariable("username") String username, @PathVariable("destination") String destination)
+	{
+		return userAccountService.getItinerariesByDestinationStartsWith(username, destination);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/itineraries/{username}/origin/{origin}/destination/{destination}")
+	public List<ItineraryDto> getItinerariesByOriginStartsWithAndDestinationStartsWith(@PathVariable("username") String username, @PathVariable("origin") String origin, @PathVariable("destination") String destination)
+	{
+		return userAccountService.getItinerariesByOriginStartsWithAndDestinationStartsWith(username, origin, destination);
+	}
+	
 
 }
